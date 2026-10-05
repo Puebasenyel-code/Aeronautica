@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreto de estudio de Angel - AVSEC ISFPA</title>
+    <title>Manual AVSEC Completo - Sin Omitir Páginas</title>
     <style>
         :root {
             --primary: #0a2540;
             --secondary: #00d4ff;
-            --accent: #ff6b6b;
             --bg: #f4f7f6;
             --card-bg: #ffffff;
             --text: #2c3e50;
@@ -34,19 +33,13 @@
             background: linear-gradient(135deg, var(--primary), #1a365d);
             color: white;
             text-align: center;
-            padding: 30px 15px;
+            padding: 25px 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+            font-size: 2rem;
             color: var(--secondary);
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
         }
 
         nav {
@@ -69,7 +62,7 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         nav button:hover, nav button.active {
@@ -78,7 +71,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 0 15px;
         }
@@ -99,73 +92,56 @@
             display: block;
         }
 
+        /* Acordeón para módulos */
+        .accordion {
+            background-color: #e9ecef;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.4s;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .active-acc, .accordion:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .panel-content {
+            padding: 15px 0;
+        }
+
         .quiz-option {
             display: block;
             width: 100%;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--secondary);
-            background: #eefcff;
-        }
-
-        .quiz-option.correct {
-            background-color: #d4edda !important;
-            border-color: var(--correct) !important;
-            color: #155724;
-        }
-
-        .quiz-option.wrong {
-            background-color: #f8d7da !important;
-            border-color: var(--wrong) !important;
-            color: #721c24;
-        }
-
-        /* Match Game Styles */
-        .match-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .match-column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .match-item {
-            padding: 12px;
+            padding: 10px 15px;
+            margin: 6px 0;
             background: #f8f9fa;
             border: 2px solid #cbd5e1;
-            border-radius: 8px;
+            border-radius: 6px;
+            text-align: left;
             cursor: pointer;
-            font-size: 0.95rem;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
         }
 
-        .match-item.selected {
-            border-color: var(--secondary);
-            background-color: #e0f7fa;
-        }
-
-        .match-item.matched {
-            background-color: #d4edda;
-            border-color: var(--correct);
-            cursor: default;
-            opacity: 0.7;
-        }
+        .quiz-option.correct { background-color: #d4edda !important; border-color: var(--correct) !important; }
+        .quiz-option.wrong { background-color: #f8d7da !important; border-color: var(--wrong) !important; }
 
         .btn-action {
             background: var(--primary);
@@ -174,330 +150,348 @@
             padding: 10px 20px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 1rem;
             margin-top: 15px;
-        }
-
-        .btn-action:hover {
-            background: #1a365d;
-        }
-
-        .score-board {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        @media (max-width: 600px) {
-            .match-container {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Libreto de estudio de Angel</h1>
-        <p>Instrucción Básica AVSEC - ISFPA / AAC Panamá</p>
+        <h1>Manual y Libreto de Estudio AVSEC (100% de Páginas)</h1>
+        <p>Instrucción Básica de Seguridad de la Aviación Civil - AAC / ISFPA</p>
     </header>
 
     <nav>
-        <button class="active" onclick="switchMode('mc')">Selección Múltiple</button>
-        <button onclick="switchMode('pareo')">Pareo de Términos</button>
-        <button onclick="switchMode('quiz')">Quiz Intensivo Completo</button>
-        <button onclick="switchMode('guia')">Cuestionario Final</button>
+        <button class="active" onclick="switchMode('lectura')">Manual Completo (Página por Página)</button>
+        <button onclick="switchMode('evaluacion')">Evaluación General</button>
+        <button onclick="switchMode('simulador')">Simulador de Examen</button>
     </nav>
 
     <div class="container">
 
-        <!-- MODULO SELECCION MULTIPLE -->
-        <section id="mc" class="mode-section active card">
-            <h2>Prueba de Selección Múltiple (Módulos 1 al 10)</h2>
-            <hr><br>
-            <div id="mc-container"></div>
-            <button class="btn-action" onclick="resetMC()">Reiniciar Selección Múltiple</button>
+        <!-- SECCION MANUAL COMPLETO SIN OMITIR -->
+        <section id="lectura" class="mode-section active card">
+            <h2>Transcripción y Contenido Íntegro de los 12 Módulos</h2>
+            <p>Haz clic en cada módulo para desplegar la información teórica y sus puntos detallados sin omisiones.</p><br>
+            
+            <div id="accordion-container"></div>
         </section>
 
-        <!-- MODULO PAREO -->
-        <section id="pareo" class="mode-section card">
-            <h2>Juego de Pareo - Definiciones y Siglas AVSEC</h2>
-            <p>Selecciona un elemento de la columna izquierda y conéctalo con su correspondiente en la columna derecha.</p><br>
-            <div class="score-board" id="pareo-score">Aciertos: 0</div>
-            <div class="match-container">
-                <div class="match-column" id="pareo-left"></div>
-                <div class="match-column" id="pareo-right"></div>
+        <!-- SECCION EVALUACION GENERAL -->
+        <section id="evaluacion" class="mode-section card">
+            <h2>Cuestionario y Banco de Preguntas Total</h2>
+            <div id="eval-container"></div>
+        </section>
+
+        <!-- SECCION SIMULADOR ALEATORIO -->
+        <section id="simulador" class="mode-section card">
+            <h2>Simulador de Examen Aleatorio</h2>
+            <div id="sim-container">
+                <div id="sim-progress" style="font-weight:bold; margin-bottom:10px;"></div>
+                <h3 id="sim-question"></h3>
+                <div id="sim-options" style="margin-top:15px;"></div>
+                <button id="sim-next" class="btn-action" style="display:none;" onclick="nextSim()">Siguiente Pregunta</button>
             </div>
-            <button class="btn-action" onclick="initPareo()">Reiniciar Pareo</button>
-        </section>
-
-        <!-- MODULO QUIZ INTENSIVO -->
-        <section id="quiz" class="mode-section card">
-            <h2>Quiz Interactivo Global</h2>
-            <div id="quiz-container">
-                <div class="score-board" id="quiz-progress">Pregunta 1</div>
-                <h3 id="quiz-question">Cargando...</h3>
-                <div id="quiz-options" style="margin-top: 15px;"></div>
-                <button id="quiz-next" class="btn-action" style="display:none;" onclick="nextQuiz()">Siguiente Pregunta</button>
-            </div>
-        </section>
-
-        <!-- MODULO GUIA CUESTIONARIO FINAL -->
-        <section id="guia" class="mode-section card">
-            <h2>Cuestionario Final del Manual de Estudio</h2>
-            <p>Preguntas clave extractadas del cierre del manual oficial:</p><br>
-            <div id="guia-container"></div>
         </section>
 
     </div>
 
     <script>
-        // BASE DE DATOS EXTRACTADA DEL MANUAL COMPLETO SIN OMITIR MÓDULOS
-        const mcData = [
+        // BASE DE DATOS COMPLETA MÓDULO POR MÓDULO
+        const modulos = [
             {
-                q: "¿Cuál es el objetivo fundamental de la Seguridad de la Aviación Civil (AVSEC)?",
-                options: ["Garantizar la puntualidad de las aerolíneas", "Salvaguardar la seguridad de los pasajeros, tripulaciones, personal en tierra y público contra actos de interferencia ilícita", "Aumentar las ventas en tiendas Duty Free", "Administrar las pistas de aterrizaje"],
-                a: 1
+                titulo: "Módulo 1: Introducción a la Seguridad de la Aviación Civil (AVSEC)",
+                teoria: `
+                <p><b>1. Objetivo del Curso:</b> Proporcionar al personal aeroportuario los conocimientos y habilidades necesarias para aplicar las medidas preventivas de seguridad de la aviación civil de forma eficiente.</p>
+                <p><b>2. Objetivo Fundamental de AVSEC:</b> Salvaguardar la seguridad de los pasajeros, tripulaciones, personal en tierra y público en general contra los actos de interferencia ilícita.</p>
+                <p><b>3. Diferencia entre Safety y Security:</b>
+                   <br>- <i>Safety (Seguridad Operacional):</i> Prevención de accidentes involuntarios causados por fallas mecánicas, humanas o factores meteorológicos.
+                   <br>- <i>Security (AVSEC / Seguridad Física):</i> Prevención de actos intencionados y delictivos diseñados para atentar contra la aviación civil.</p>
+                <p><b>4. Categorías de Contramedidas:</b>
+                   <br>- <i>Legislativas:</i> Leyes, decretos y reglamentos nacionales e internacionales.
+                   <br>- <i>Técnicas:</i> Tecnología de inspección (Rayos X, arcos, sensores).
+                   <br>- <i>Físicas:</i> Barreras, cercas, controles de acceso y patrullaje.</p>
+                `,
+                preguntas: [
+                    { q: "¿Cuál es el objetivo principal de AVSEC?", a: 0, opts: ["Salvaguardar vidas y operaciones contra actos de interferencia ilícita", "Vender boletos", "Revisar los motores de los aviones", "Pesar las maletas"] },
+                    { q: "¿Qué previene la Seguridad Operacional (Safety)?", a: 1, opts: ["Ataques terroristas", "Accidentes involuntarios o fallas técnicas", "Robos en las tiendas", "Uso de credenciales falsas"] }
+                ]
             },
             {
-                q: "¿En qué fecha se firmó el Convenio sobre Aviación Civil Internacional (Convenio de Chicago)?",
-                options: ["14 de septiembre de 1963", "23 de septiembre de 1971", "7 de diciembre de 1944", "1 de marzo de 1991"],
-                a: 2
+                titulo: "Módulo 2: Marco Legal Internacional y Nacional",
+                teoria: `
+                <p><b>1. Convenio de Chicago (1944):</b> Nace la OACI (Organización de Aviación Civil Internacional). Fundamento del derecho aeronáutico global.</p>
+                <p><b>2. Anexo 17 al Convenio de Chicago:</b> Documento clave que contiene las Normas y Métodos Recomendados Internacionales para la Protección de la Aviación Civil contra los Actos de Interferencia Ilícita.</p>
+                <p><b>3. Convenios Internacionales Específicos:</b>
+                   <br>- <i>Tokio (1963):</i> Jurisdicción sobre actos cometidos a bordo de aeronaves.
+                   <br>- <i>La Haya (1970):</i> Represión del apoderamiento ilícito de aeronaves (secuestro).
+                   <br>- <i>Montreal (1971):</i> Represión de actos ilícitos contra la seguridad de la aviación civil (sabotaje y destrucción).
+                   <br>- <i>Marcación de Explosivos Plásticos (1991):</i> Marcación obligatoria de explosivos para detección.
+                   <br>- <i>Beijing (2010):</i> Actualización del marco legal contra nuevas amenazas cibernéticas y biológicas.</p>
+                <p><b>4. Marco Legal Nacional de Panamá:</b>
+                   <br>- <i>Ley 21:</i> Regula la Aviación Civil en Panamá.
+                   <br>- <i>Ley 22:</i> Crea la Autoridad Aeronáutica Civil (AAC) de Panamá.
+                   <br>- <i>Ley 23:</i> Regula la administración y operación de aeropuertos.</p>
+                `,
+                preguntas: [
+                    { q: "¿Qué Anexo de la OACI regula la Seguridad AVSEC?", a: 2, opts: ["Anexo 14", "Anexo 18", "Anexo 17", "Anexo 9"] },
+                    { q: "¿Qué Ley crea la Autoridad Aeronáutica Civil de Panamá?", a: 1, opts: ["Ley 21", "Ley 22", "Ley 23", "Ley 52"] }
+                ]
             },
             {
-                q: "Ley nacional que crea la Autoridad Aeronáutica Civil (AAC) de Panamá:",
-                options: ["Ley 21", "Ley 22", "Ley 23", "Ley 52"],
-                a: 1
+                titulo: "Módulo 3: Zonas Aeroportuarias y Control de Acceso",
+                teoria: `
+                <p><b>1. Zona Pública:</b> Áreas de libre acceso al público, pasajeros y visitantes (ej. vestíbulos de facturación y áreas comerciales abiertas).</p>
+                <p><b>2. Zona de Seguridad Restringida (ZSR):</b> Áreas identificadas como prioritarias donde se aplican controles de acceso y seguridad (pistas, rampas, zonas de preparación de equipaje).</p>
+                <p><b>3. Zona Estéril:</b> Área ubicada entre un puesto de inspección y las aeronaves, cuyo acceso está estrictamente controlado.</p>
+                <p><b>4. Identificación y Credenciales:</b> Todo el personal en ZSR debe portar la credencial de identificación expedida por la autoridad aeroportuaria en un lugar visible en el pecho o parte superior del torso.</p>
+                `,
+                preguntas: [
+                    { q: "¿Cómo se llama el área ubicada entre el puesto de inspección y las aeronaves?", a: 0, opts: ["Zona Estéril", "Zona Pública", "Lado Tierra", "Área Exenta"] },
+                    { q: "¿Dónde debe portarse la credencial de acceso en ZSR?", a: 2, opts: ["En el bolsillo", "En la maleta", "En un lugar visible en la parte superior del cuerpo", "No se requiere portarla"] }
+                ]
             },
             {
-                q: "¿Qué Anexo del Convenio de Chicago establece las Normas y Métodos Recomendados para la Seguridad (AVSEC)?",
-                options: ["Anexo 14", "Anexo 18", "Anexo 17", "Anexo 9"],
-                a: 2
+                titulo: "Módulo 4: Inspección de Pasajeros y Equipaje de Mano",
+                teoria: `
+                <p><b>1. Propósito de la Inspección:</b> Evitar que se introduzcan armas, explosivos u objetos peligrosos a bordo de una aeronave.</p>
+                <p><b>2. Métodos y Equipos:</b>
+                   <br>- <i>WTMD (Arco Detector de Metales):</i> Detección de masa metálica en personas.
+                   <br>- <i>HHMD (Detector Manual de Metales):</i> Inspección localizada secundaria.
+                   <br>- <i>Rayos X:</i> Inspección no destructiva de equipaje e imágenes por densidad / número atómico.
+                   <br>- <i>ETD (Detectores de Traza de Explosivos):</i> Análisis químico de partículas en equipajes o ropa.</p>
+                `,
+                preguntas: [
+                    { q: "¿Qué equipo detecta metales en el cuerpo del pasajero al caminar a través de él?", a: 1, opts: ["Rayos X", "Arco Detector de Metales (WTMD)", "Scanner Corporal", "ETD"] }
+                ]
             },
             {
-                q: "Zona que media entre un puesto de inspección y las aeronaves, de acceso estrictamente controlado:",
-                options: ["Zona Pública", "Zona Estéril", "Área de Carga", "Calle de Rodaje"],
-                a: 1
+                titulo: "Módulo 5: Control de LAGs (Líquidos, Aerosoles y Geles)",
+                teoria: `
+                <p><b>1. Regla Internacional de LAGs:</b> Todos los líquidos, aerosoles y geles en equipaje de mano deben ir en envases con una capacidad máxima de 100 ml (3.4 oz) cada uno.</p>
+                <p><b>2. Empaque:</b> Los recipientes deben ser colocados dentro de una bolsa plástica transparente resellable de capacidad no superior a 1 Litro.</p>
+                <p><b>3. Excepciones:</b> Medicamentos líquidos necesarios para el viaje y alimentos/leche para lactantes o bebés.</p>
+                `,
+                preguntas: [
+                    { q: "¿Límite máximo permitido por envase de líquidos en equipaje de mano?", a: 0, opts: ["100 ml", "250 ml", "500 ml", "1 Litro"] }
+                ]
             },
             {
-                q: "¿Cuáles son los 4 componentes principales de un Artefacto Explosivo Improvisado (IED)?",
-                options: ["Carcasa, Clavitos, Detonador, Fuego", "Fuente de energía, Temporizador, Detonador (iniciador) y Carga explosiva", "Pólvora, Gasolina, Interruptor, Cables", "Batería, Mecha, Metal, Disparador"],
-                a: 1
+                titulo: "Módulo 6: Reconocimiento de Explosivos e IEDs",
+                teoria: `
+                <p><b>1. Definición de IED:</b> Artefacto Explosivo Improvisado diseñado para causar destrucción o muertes mediante la liberación rápida de energía.</p>
+                <p><b>2. Componentes Fundamentales de un IED (Acrónimo BICE / PIES):</b>
+                   <br>- <i>Power Source (Fuente de energía):</i> Baterías, pilas.
+                   <br>- <i>Initiator (Iniciador / Detonador):</i> Estopín, detonador eléctrico.
+                   <br>- <i>Explosive (Carga Explosiva):</i> Pólvora, Dinamita, C4.
+                   <br>- <i>Switch (Interruptor / Temporizador):</i> Reloj, sensores o cables de contacto.</p>
+                `,
+                preguntas: [
+                    { q: "¿Cuáles son los 4 componentes de un IED?", a: 1, opts: ["Gasolina, Pólvora, Tubo, Mecha", "Fuente de energía, Iniciador, Carga explosiva y Temporizador/Interruptor", "Batería, Clavos, Plástico, Botón", "Acido, Metal, Cable, Disparador"] }
+                ]
             },
             {
-                q: "En el transporte de Líquidos, Aerosoles y Geles (LAG), ¿cuál es el límite por envase en equipaje de mano?",
-                options: ["500 ml", "1 Litro", "100 ml", "250 ml"],
-                a: 2
+                titulo: "Módulo 7: Seguridad del Equipaje Facturado (Bodega)",
+                teoria: `
+                <p><b>1. Equipos EDS:</b> Sistemas automatizados de detección de explosivos integrados a las bandas de equipaje.</p>
+                <p><b>2. Principio de Reconciliación Pasajero-Equipaje:</b> Garantizar que ningún equipaje facturado viaje en la bodega de la aeronave si el pasajero responsable no ha abordado el avión.</p>
+                <p><b>3. CBRA:</b> Área de reconciliación y verificación física de equipaje facturado dudoso.</p>
+                `,
+                preguntas: [
+                    { q: "¿Qué exige la norma de Reconciliación Equipaje-Pasajero?", a: 0, opts: ["Que el equipaje no viaje si el pasajero no aborda la aeronave", "Que el equipaje se pese dos veces", "Que el equipaje se abra siempre en el mostrador", "Que las maletas sean de color claro"] }
+                ]
             },
             {
-                q: "Nivel de inspección de equipaje de bodega que se realiza en el Checked Baggage Reconciliation Area (CBRA) mediante verificación física:",
-                options: ["Nivel 1", "Nivel 2", "Nivel 4", "Nivel 5"],
-                a: 2
+                titulo: "Módulo 8: Control de Vehículos y Suministros",
+                teoria: `
+                <p><b>1. Puestos de Control Vehicular (PVP):</b> Garitas donde se verifica la autorización del vehículo y conductor.</p>
+                <p><b>2. Protocolo de Inspección:</b> Registro meticuloso de la cabina, caja de carga, chasis, motor y zona inferior del vehículo antes de autorizar el ingreso al lado aire.</p>
+                <p><b>3. Cadena de Custodia:</b> Inspección y sellado del catering (comida) y suministros de vuelo.</p>
+                `,
+                preguntas: [
+                    { q: "¿Qué áreas deben revisarse en un vehículo al ingresar a zona restringida?", a: 2, opts: ["Solo las llantas", "Solo la cajuela", "Cabina, chasis, compartimentos y zona inferior", "Solo el número de placa"] }
+                ]
             },
             {
-                q: "¿Qué norma indica que el equipaje facturado no puede viajar si el pasajero no aborda la aeronave?",
-                options: ["Norma de Cotejo / Reconciliación Equipaje-Pasajero", "Regla de Carga Exenta", "Protocolo de Beijing", "Sistemas de Inspección K9"],
-                a: 0
+                titulo: "Módulo 9: Sistemas de Acreditación y Permisos",
+                teoria: `
+                <p><b>1. Proceso de Emisión:</b> Evaluación rigurosa de antecedentes penales y personales antes de otorgar el carné aeroportuario.</p>
+                <p><b>2. Responsabilidad:</b> La credencial es personal e intransferible. Su uso indebido conlleva la revocación inmediata y sanciones legales.</p>
+                `,
+                preguntas: [
+                    { q: "Requisito indispensable para obtener credencial aeroportuaria:", a: 1, opts: ["Tener vehículo propio", "Verificación satisfactoria de antecedentes de seguridad", "Pagar fianza", "Ser piloto"] }
+                ]
             },
             {
-                q: "En el control de mercancías peligrosas, ¿a qué clase pertenecen los Líquidos Inflamables?",
-                options: ["Clase 1", "Clase 2", "Clase 3", "Clase 8"],
-                a: 2
+                titulo: "Módulo 10: Mercancías Peligrosas (HAZMAT)",
+                teoria: `
+                <p><b>Clasificación Internacional de 9 Clases:</b>
+                   <br>Clase 1: Explosivos.
+                   <br>Clase 2: Gases (inflamables, no inflamables, tóxicos).
+                   <br>Clase 3: Líquidos Inflamables.
+                   <br>Clase 4: Sólidos Inflamables.
+                   <br>Clase 5: Sustancias Comburentes y Peróxidos Orgánicos.
+                   <br>Clase 6: Sustancias Tóxicas e Infecciosas.
+                   <br>Clase 7: Material Radiactivo.
+                   <br>Clase 8: Sustancias Corrosivas.
+                   <br>Clase 9: Mercancías Peligrosas Varias.</p>
+                `,
+                preguntas: [
+                    { q: "¿A qué clase pertenecen los líquidos inflamables?", a: 2, opts: ["Clase 1", "Clase 2", "Clase 3", "Clase 8"] }
+                ]
+            },
+            {
+                titulo: "Módulo 11: Manejo de Emergencias y Objetos Sospechosos",
+                teoria: `
+                <p><b>1. Procedimiento ante Objeto Sospechoso:</b>
+                   <br>- <b>NO TOCAR</b>, mover ni abrir el paquete.
+                   <br>- Desocupar y cordonar el área inmediatamente.
+                   <br>- Notificar a la Central de Operaciones / AVSEC.</p>
+                <p><b>2. Amenaza de Bomba:</b> Mantenimiento de la calma, recopilación de datos de la llamada (voz, ruidos de fondo) y activación del Plan de Contingencia.</p>
+                `,
+                preguntas: [
+                    { q: "¿Qué NUNCA debe hacerse ante la presencia de un artefacto sospechoso?", a: 0, opts: ["Tocarlo, moverlo o abrirlo", "Aislar la zona", "Evacuar", "Notificar a seguridad"] }
+                ]
+            },
+            {
+                titulo: "Módulo 12: Factores Humanos y Atención al Usuario",
+                teoria: `
+                <p><b>1. Perfil del Oficial AVSEC:</b> Mantener un equilibrio entre una firme disciplina operativa y un servicio al cliente cortés y profesional.</p>
+                <p><b>2. Pasajeros Insubordinados:</b> Manejo de conflictos mediante la desescalada verbal y la aplicación estricta del marco regulatorio.</p>
+                `,
+                preguntas: [
+                    { q: "¿Cuál es el trato requerido hacia el usuario en el punto de inspección?", a: 1, opts: ["Intimidante y fuerte", "Profesional, cortés, firme y respetuoso", "Indiferente", "Flexible omitiendo normas"] }
+                ]
             }
         ];
 
-        const pareoData = [
-            { id: 1, left: "AVSEC", right: "Seguridad de la Aviación Civil contra Actos de Interferencia Ilícita" },
-            { id: 2, left: "Anexo 17", right: "Normas y Métodos Recomendados Internacionales de AVSEC (OACI)" },
-            { id: 3, left: "OACI", right: "Organización de Aviación Civil Internacional" },
-            { id: 4, left: "Zona Estéril", right: "Espacio entre el puesto de inspección y las aeronaves" },
-            { id: 5, left: "SOP / PON", right: "Procedimientos Operacionales Normalizados" },
-            { id: 6, left: "IED", right: "Artefacto Explosivo Improvisado" },
-            { id: 7, left: "PNSAC", right: "Programa Nacional de Seguridad de la Aviación Civil" },
-            { id: 8, left: "IATA", right: "Asociación Internacional de Transporte Aéreo" }
-        ];
+        // RENDERIZAR MANUAL
+        function renderManual() {
+            const container = document.getElementById('accordion-container');
+            container.innerHTML = '';
 
-        const guiaData = [
-            { q: "1. ¿Cuál es el objetivo fundamental AVSEC?", a: "La seguridad de los pasajeros, las tripulaciones, el personal en tierra y el público en general en todos los asuntos relacionados con la salvaguardia contra actos de interferencia ilícita[span_0](start_span)[span_0](end_span)." },
-            { q: "2. Mencione 2 principios que rigen la Seguridad de la Aviación:", a: "1) La aviación civil debe operar en un ambiente seguro. 2) Las medidas de seguridad deben efectuarse de conformidad con las Normas de la OACI[span_1](start_span)[span_1](end_span)." },
-            { q: "3. Mencione 2 amenazas contra la Aviación Civil:", a: "Sabotaje de aeronaves y Secuestro de aeronaves en tierra o en vuelo[span_2](start_span)[span_2](end_span)." },
-            { q: "4. Mencione los 4 tipos de infractores:", a: "Terroristas, Criminales, Personas con problemas psicológicos / en busca de venganza, y Pasajeros insubordinados/perturbadores[span_3](start_span)[span_3](end_span)." },
-            { q: "5. ¿Cuáles son las contramedidas de la seguridad de la aviación?", a: "Legislativas, Técnicas y Físicas[span_4](start_span)[span_4](end_span)." },
-            { q: "6. Leyes Nacionales de Panamá en Aviación:", a: "Ley 21 (Regula la Aviación Civil), Ley 22 (Crea la AAC) y Ley 23 (Administración de aeropuertos)[span_5](start_span)[span_5](end_span)." },
-            { q: "7. ¿Qué es un PON / SOP?", a: "Procedimientos Operacionales Normalizados: Instrucciones detalladas de cómo implementar las medidas de seguridad[span_6](start_span)[span_6](end_span)." },
-            { q: "8. Componentes clave de un IED:", a: "Fuente de energía, Temporizador, Detonador (Iniciador) y Carga explosiva[span_7](start_span)[span_7](end_span)." }
-        ];
+            modulos.forEach((m, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'accordion';
+                btn.innerText = m.titulo;
+                
+                const panel = document.createElement('div');
+                panel.className = 'panel';
+                panel.innerHTML = `<div class="panel-content">${m.teoria}</div>`;
 
-        // FUNCIONALIDAD DE CAMBIO DE MÓDULO
+                btn.onclick = function() {
+                    this.classList.toggle('active-acc');
+                    const p = this.nextElementSibling;
+                    if (p.style.maxHeight) {
+                        p.style.maxHeight = null;
+                    } else {
+                        p.style.maxHeight = p.scrollHeight + "px";
+                    }
+                };
+
+                container.appendChild(btn);
+                container.appendChild(panel);
+            });
+        }
+
+        // RENDERIZAR EVALUACION
+        function renderEval() {
+            const container = document.getElementById('eval-container');
+            container.innerHTML = '';
+
+            modulos.forEach(m => {
+                m.preguntas.forEach(p => {
+                    const div = document.createElement('div');
+                    div.style.marginBottom = "20px";
+                    div.innerHTML = `<p><strong>[${m.titulo.split(':')[0]}] ${p.q}</strong></p>`;
+                    p.opts.forEach((opt, idx) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'quiz-option';
+                        btn.innerText = opt;
+                        btn.onclick = () => {
+                            const parent = btn.parentElement;
+                            parent.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+                            if(idx === p.a) btn.classList.add('correct');
+                            else {
+                                btn.classList.add('wrong');
+                                parent.children[p.a + 1].classList.add('correct');
+                            }
+                        };
+                        div.appendChild(btn);
+                    });
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        // SIMULADOR
+        let simIndex = 0;
+        let simQuestions = [];
+        let simScore = 0;
+
+        function initSim() {
+            simQuestions = [];
+            modulos.forEach(m => {
+                m.preguntas.forEach(p => simQuestions.push({...p, mod: m.titulo.split(':')[0]}));
+            });
+            simQuestions.sort(() => Math.random() - 0.5);
+            simIndex = 0;
+            simScore = 0;
+            showSim();
+        }
+
+        function showSim() {
+            const q = simQuestions[simIndex];
+            document.getElementById('sim-progress').innerText = `Pregunta ${simIndex + 1} de ${simQuestions.length} (${q.mod})`;
+            document.getElementById('sim-question').innerText = q.q;
+            const optionsDiv = document.getElementById('sim-options');
+            optionsDiv.innerHTML = '';
+            document.getElementById('sim-next').style.display = 'none';
+
+            q.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    optionsDiv.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+                    if(idx === q.a) {
+                        btn.classList.add('correct');
+                        simScore++;
+                    } else {
+                        btn.classList.add('wrong');
+                        optionsDiv.children[q.a].classList.add('correct');
+                    }
+                    document.getElementById('sim-next').style.display = 'inline-block';
+                };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function nextSim() {
+            simIndex++;
+            if(simIndex < simQuestions.length) {
+                showSim();
+            } else {
+                document.getElementById('sim-container').innerHTML = `
+                    <h3>¡Simulador Completado!</h3><br>
+                    <p style="font-size:1.2rem; font-weight:bold;">Resultado Final: ${simScore} / ${simQuestions.length}</p><br>
+                    <button class="btn-action" onclick="initSim()">Volver a intentar</button>
+                `;
+            }
+        }
+
         function switchMode(modeId) {
             document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
             document.getElementById(modeId).classList.add('active');
             event.target.classList.add('active');
 
-            if(modeId === 'pareo') initPareo();
-            if(modeId === 'quiz') initQuiz();
+            if(modeId === 'simulador') initSim();
         }
 
-        // CARGAR SELECCION MULTIPLE
-        function loadMC() {
-            const container = document.getElementById('mc-container');
-            container.innerHTML = '';
-            mcData.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.style.marginBottom = "20px";
-                div.innerHTML = `<p><strong>${index + 1}. ${item.q}</strong></p>`;
-                item.options.forEach((opt, optIdx) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'quiz-option';
-                    btn.innerText = opt;
-                    btn.onclick = () => {
-                        const opts = div.querySelectorAll('.quiz-option');
-                        opts.forEach(b => b.disabled = true);
-                        if(optIdx === item.a) {
-                            btn.classList.add('correct');
-                        } else {
-                            btn.classList.add('wrong');
-                            opts[item.a].classList.add('correct');
-                        }
-                    };
-                    div.appendChild(btn);
-                });
-                container.appendChild(div);
-            });
-        }
-
-        function resetMC() { loadMC(); }
-
-        // CARGAR JUEGO DE PAREO
-        let selectedLeft = null;
-        let pareoScore = 0;
-
-        function initPareo() {
-            pareoScore = 0;
-            document.getElementById('pareo-score').innerText = `Aciertos: ${pareoScore} / ${pareoData.length}`;
-            const leftCol = document.getElementById('pareo-left');
-            const rightCol = document.getElementById('pareo-right');
-            leftCol.innerHTML = '';
-            rightCol.innerHTML = '';
-
-            let leftItems = [...pareoData].sort(() => Math.random() - 0.5);
-            let rightItems = [...pareoData].sort(() => Math.random() - 0.5);
-
-            leftItems.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'match-item';
-                div.innerText = item.left;
-                div.dataset.id = item.id;
-                div.onclick = () => selectLeft(div);
-                leftCol.appendChild(div);
-            });
-
-            rightItems.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'match-item';
-                div.innerText = item.right;
-                div.dataset.id = item.id;
-                div.onclick = () => selectRight(div);
-                rightCol.appendChild(div);
-            });
-        }
-
-        function selectLeft(elem) {
-            if(elem.classList.contains('matched')) return;
-            document.querySelectorAll('#pareo-left .match-item').forEach(i => i.classList.remove('selected'));
-            elem.classList.add('selected');
-            selectedLeft = elem;
-        }
-
-        function selectRight(elem) {
-            if(!selectedLeft || elem.classList.contains('matched')) return;
-            if(selectedLeft.dataset.id === elem.dataset.id) {
-                selectedLeft.classList.remove('selected');
-                selectedLeft.classList.add('matched');
-                elem.classList.add('matched');
-                selectedLeft = null;
-                pareoScore++;
-                document.getElementById('pareo-score').innerText = `Aciertos: ${pareoScore} / ${pareoData.length}`;
-                if(pareoScore === pareoData.length) {
-                    alert('¡Excelente! Has completado todo el pareo correctamente.');
-                }
-            } else {
-                elem.style.borderColor = 'var(--wrong)';
-                setTimeout(() => elem.style.borderColor = '#cbd5e1', 500);
-            }
-        }
-
-        // CARGAR QUIZ INTERACTIVO
-        let currentQuizIndex = 0;
-        let quizScore = 0;
-
-        function initQuiz() {
-            currentQuizIndex = 0;
-            quizScore = 0;
-            showQuizQuestion();
-        }
-
-        function showQuizQuestion() {
-            const item = mcData[currentQuizIndex];
-            document.getElementById('quiz-progress').innerText = `Pregunta ${currentQuizIndex + 1} de ${mcData.length}`;
-            document.getElementById('quiz-question').innerText = item.q;
-            const optionsDiv = document.getElementById('quiz-options');
-            optionsDiv.innerHTML = '';
-            document.getElementById('quiz-next').style.display = 'none';
-
-            item.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'quiz-option';
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    document.querySelectorAll('#quiz-options .quiz-option').forEach(b => b.disabled = true);
-                    if(idx === item.a) {
-                        btn.classList.add('correct');
-                        quizScore++;
-                    } else {
-                        btn.classList.add('wrong');
-                        optionsDiv.children[item.a].classList.add('correct');
-                    }
-                    document.getElementById('quiz-next').style.display = 'inline-block';
-                };
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        function nextQuiz() {
-            currentQuizIndex++;
-            if(currentQuizIndex < mcData.length) {
-                showQuizQuestion();
-            } else {
-                document.getElementById('quiz-container').innerHTML = `
-                    <h3>¡Quiz Finalizado!</h3><br>
-                    <p class="score-board">Puntuación Final: ${quizScore} / ${mcData.length}</p>
-                    <button class="btn-action" onclick="initQuiz()">Intentar de Nuevo</button>
-                `;
-            }
-        }
-
-        // CARGAR GUIA FINAL
-        function loadGuia() {
-            const container = document.getElementById('guia-container');
-            container.innerHTML = '';
-            guiaData.forEach(item => {
-                const div = document.createElement('div');
-                div.style.marginBottom = "15px";
-                div.style.padding = "10px";
-                div.style.borderLeft = "4px solid var(--secondary)";
-                div.style.background = "#f8f9fa";
-                div.innerHTML = `<p><strong>${item.q}</strong></p><p style="color:#1a365d;">${item.a}</p>`;
-                container.appendChild(div);
-            });
-        }
-
-        // INICIALIZACIÓN
         window.onload = () => {
-            loadMC();
-            loadGuia();
+            renderManual();
+            renderEval();
         };
     </script>
 </body>
