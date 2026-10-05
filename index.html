@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libreto de estudio de Angel - AVSEC ISFPA</title>
+    <style>
+        :root {
+            --primary: #0a2540;
+            --secondary: #00d4ff;
+            --accent: #ff6b6b;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --correct: #2ecc71;
+            --wrong: #e74c3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a365d);
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: #102a45;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover, nav button.active {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .mode-section {
+            display: none;
+        }
+
+        .mode-section.active {
+            display: block;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--secondary);
+            background: #eefcff;
+        }
+
+        .quiz-option.correct {
+            background-color: #d4edda !important;
+            border-color: var(--correct) !important;
+            color: #155724;
+        }
+
+        .quiz-option.wrong {
+            background-color: #f8d7da !important;
+            border-color: var(--wrong) !important;
+            color: #721c24;
+        }
+
+        /* Match Game Styles */
+        .match-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .match-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .match-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .match-item.selected {
+            border-color: var(--secondary);
+            background-color: #e0f7fa;
+        }
+
+        .match-item.matched {
+            background-color: #d4edda;
+            border-color: var(--correct);
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+
+        .btn-action:hover {
+            background: #1a365d;
+        }
+
+        .score-board {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .match-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Libreto de estudio de Angel</h1>
+        <p>Instrucción Básica AVSEC - ISFPA / AAC Panamá</p>
+    </header>
+
+    <nav>
+        <button class="active" onclick="switchMode('mc')">Selección Múltiple</button>
+        <button onclick="switchMode('pareo')">Pareo de Términos</button>
+        <button onclick="switchMode('quiz')">Quiz Intensivo Completo</button>
+        <button onclick="switchMode('guia')">Cuestionario Final</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- MODULO SELECCION MULTIPLE -->
+        <section id="mc" class="mode-section active card">
+            <h2>Prueba de Selección Múltiple (Módulos 1 al 10)</h2>
+            <hr><br>
+            <div id="mc-container"></div>
+            <button class="btn-action" onclick="resetMC()">Reiniciar Selección Múltiple</button>
+        </section>
+
+        <!-- MODULO PAREO -->
+        <section id="pareo" class="mode-section card">
+            <h2>Juego de Pareo - Definiciones y Siglas AVSEC</h2>
+            <p>Selecciona un elemento de la columna izquierda y conéctalo con su correspondiente en la columna derecha.</p><br>
+            <div class="score-board" id="pareo-score">Aciertos: 0</div>
+            <div class="match-container">
+                <div class="match-column" id="pareo-left"></div>
+                <div class="match-column" id="pareo-right"></div>
+            </div>
+            <button class="btn-action" onclick="initPareo()">Reiniciar Pareo</button>
+        </section>
+
+        <!-- MODULO QUIZ INTENSIVO -->
+        <section id="quiz" class="mode-section card">
+            <h2>Quiz Interactivo Global</h2>
+            <div id="quiz-container">
+                <div class="score-board" id="quiz-progress">Pregunta 1</div>
+                <h3 id="quiz-question">Cargando...</h3>
+                <div id="quiz-options" style="margin-top: 15px;"></div>
+                <button id="quiz-next" class="btn-action" style="display:none;" onclick="nextQuiz()">Siguiente Pregunta</button>
+            </div>
+        </section>
+
+        <!-- MODULO GUIA CUESTIONARIO FINAL -->
+        <section id="guia" class="mode-section card">
+            <h2>Cuestionario Final del Manual de Estudio</h2>
+            <p>Preguntas clave extractadas del cierre del manual oficial:</p><br>
+            <div id="guia-container"></div>
+        </section>
+
+    </div>
+
+    <script>
+        // BASE DE DATOS EXTRACTADA DEL MANUAL COMPLETO SIN OMITIR MÓDULOS
+        const mcData = [
+            {
+                q: "¿Cuál es el objetivo fundamental de la Seguridad de la Aviación Civil (AVSEC)?",
+                options: ["Garantizar la puntualidad de las aerolíneas", "Salvaguardar la seguridad de los pasajeros, tripulaciones, personal en tierra y público contra actos de interferencia ilícita", "Aumentar las ventas en tiendas Duty Free", "Administrar las pistas de aterrizaje"],
+                a: 1
+            },
+            {
+                q: "¿En qué fecha se firmó el Convenio sobre Aviación Civil Internacional (Convenio de Chicago)?",
+                options: ["14 de septiembre de 1963", "23 de septiembre de 1971", "7 de diciembre de 1944", "1 de marzo de 1991"],
+                a: 2
+            },
+            {
+                q: "Ley nacional que crea la Autoridad Aeronáutica Civil (AAC) de Panamá:",
+                options: ["Ley 21", "Ley 22", "Ley 23", "Ley 52"],
+                a: 1
+            },
+            {
+                q: "¿Qué Anexo del Convenio de Chicago establece las Normas y Métodos Recomendados para la Seguridad (AVSEC)?",
+                options: ["Anexo 14", "Anexo 18", "Anexo 17", "Anexo 9"],
+                a: 2
+            },
+            {
+                q: "Zona que media entre un puesto de inspección y las aeronaves, de acceso estrictamente controlado:",
+                options: ["Zona Pública", "Zona Estéril", "Área de Carga", "Calle de Rodaje"],
+                a: 1
+            },
+            {
+                q: "¿Cuáles son los 4 componentes principales de un Artefacto Explosivo Improvisado (IED)?",
+                options: ["Carcasa, Clavitos, Detonador, Fuego", "Fuente de energía, Temporizador, Detonador (iniciador) y Carga explosiva", "Pólvora, Gasolina, Interruptor, Cables", "Batería, Mecha, Metal, Disparador"],
+                a: 1
+            },
+            {
+                q: "En el transporte de Líquidos, Aerosoles y Geles (LAG), ¿cuál es el límite por envase en equipaje de mano?",
+                options: ["500 ml", "1 Litro", "100 ml", "250 ml"],
+                a: 2
+            },
+            {
+                q: "Nivel de inspección de equipaje de bodega que se realiza en el Checked Baggage Reconciliation Area (CBRA) mediante verificación física:",
+                options: ["Nivel 1", "Nivel 2", "Nivel 4", "Nivel 5"],
+                a: 2
+            },
+            {
+                q: "¿Qué norma indica que el equipaje facturado no puede viajar si el pasajero no aborda la aeronave?",
+                options: ["Norma de Cotejo / Reconciliación Equipaje-Pasajero", "Regla de Carga Exenta", "Protocolo de Beijing", "Sistemas de Inspección K9"],
+                a: 0
+            },
+            {
+                q: "En el control de mercancías peligrosas, ¿a qué clase pertenecen los Líquidos Inflamables?",
+                options: ["Clase 1", "Clase 2", "Clase 3", "Clase 8"],
+                a: 2
+            }
+        ];
+
+        const pareoData = [
+            { id: 1, left: "AVSEC", right: "Seguridad de la Aviación Civil contra Actos de Interferencia Ilícita" },
+            { id: 2, left: "Anexo 17", right: "Normas y Métodos Recomendados Internacionales de AVSEC (OACI)" },
+            { id: 3, left: "OACI", right: "Organización de Aviación Civil Internacional" },
+            { id: 4, left: "Zona Estéril", right: "Espacio entre el puesto de inspección y las aeronaves" },
+            { id: 5, left: "SOP / PON", right: "Procedimientos Operacionales Normalizados" },
+            { id: 6, left: "IED", right: "Artefacto Explosivo Improvisado" },
+            { id: 7, left: "PNSAC", right: "Programa Nacional de Seguridad de la Aviación Civil" },
+            { id: 8, left: "IATA", right: "Asociación Internacional de Transporte Aéreo" }
+        ];
+
+        const guiaData = [
+            { q: "1. ¿Cuál es el objetivo fundamental AVSEC?", a: "La seguridad de los pasajeros, las tripulaciones, el personal en tierra y el público en general en todos los asuntos relacionados con la salvaguardia contra actos de interferencia ilícita[span_0](start_span)[span_0](end_span)." },
+            { q: "2. Mencione 2 principios que rigen la Seguridad de la Aviación:", a: "1) La aviación civil debe operar en un ambiente seguro. 2) Las medidas de seguridad deben efectuarse de conformidad con las Normas de la OACI[span_1](start_span)[span_1](end_span)." },
+            { q: "3. Mencione 2 amenazas contra la Aviación Civil:", a: "Sabotaje de aeronaves y Secuestro de aeronaves en tierra o en vuelo[span_2](start_span)[span_2](end_span)." },
+            { q: "4. Mencione los 4 tipos de infractores:", a: "Terroristas, Criminales, Personas con problemas psicológicos / en busca de venganza, y Pasajeros insubordinados/perturbadores[span_3](start_span)[span_3](end_span)." },
+            { q: "5. ¿Cuáles son las contramedidas de la seguridad de la aviación?", a: "Legislativas, Técnicas y Físicas[span_4](start_span)[span_4](end_span)." },
+            { q: "6. Leyes Nacionales de Panamá en Aviación:", a: "Ley 21 (Regula la Aviación Civil), Ley 22 (Crea la AAC) y Ley 23 (Administración de aeropuertos)[span_5](start_span)[span_5](end_span)." },
+            { q: "7. ¿Qué es un PON / SOP?", a: "Procedimientos Operacionales Normalizados: Instrucciones detalladas de cómo implementar las medidas de seguridad[span_6](start_span)[span_6](end_span)." },
+            { q: "8. Componentes clave de un IED:", a: "Fuente de energía, Temporizador, Detonador (Iniciador) y Carga explosiva[span_7](start_span)[span_7](end_span)." }
+        ];
+
+        // FUNCIONALIDAD DE CAMBIO DE MÓDULO
+        function switchMode(modeId) {
+            document.querySelectorAll('.mode-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(modeId).classList.add('active');
+            event.target.classList.add('active');
+
+            if(modeId === 'pareo') initPareo();
+            if(modeId === 'quiz') initQuiz();
+        }
+
+        // CARGAR SELECCION MULTIPLE
+        function loadMC() {
+            const container = document.getElementById('mc-container');
+            container.innerHTML = '';
+            mcData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.style.marginBottom = "20px";
+                div.innerHTML = `<p><strong>${index + 1}. ${item.q}</strong></p>`;
+                item.options.forEach((opt, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option';
+                    btn.innerText = opt;
+                    btn.onclick = () => {
+                        const opts = div.querySelectorAll('.quiz-option');
+                        opts.forEach(b => b.disabled = true);
+                        if(optIdx === item.a) {
+                            btn.classList.add('correct');
+                        } else {
+                            btn.classList.add('wrong');
+                            opts[item.a].classList.add('correct');
+                        }
+                    };
+                    div.appendChild(btn);
+                });
+                container.appendChild(div);
+            });
+        }
+
+        function resetMC() { loadMC(); }
+
+        // CARGAR JUEGO DE PAREO
+        let selectedLeft = null;
+        let pareoScore = 0;
+
+        function initPareo() {
+            pareoScore = 0;
+            document.getElementById('pareo-score').innerText = `Aciertos: ${pareoScore} / ${pareoData.length}`;
+            const leftCol = document.getElementById('pareo-left');
+            const rightCol = document.getElementById('pareo-right');
+            leftCol.innerHTML = '';
+            rightCol.innerHTML = '';
+
+            let leftItems = [...pareoData].sort(() => Math.random() - 0.5);
+            let rightItems = [...pareoData].sort(() => Math.random() - 0.5);
+
+            leftItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'match-item';
+                div.innerText = item.left;
+                div.dataset.id = item.id;
+                div.onclick = () => selectLeft(div);
+                leftCol.appendChild(div);
+            });
+
+            rightItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'match-item';
+                div.innerText = item.right;
+                div.dataset.id = item.id;
+                div.onclick = () => selectRight(div);
+                rightCol.appendChild(div);
+            });
+        }
+
+        function selectLeft(elem) {
+            if(elem.classList.contains('matched')) return;
+            document.querySelectorAll('#pareo-left .match-item').forEach(i => i.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedLeft = elem;
+        }
+
+        function selectRight(elem) {
+            if(!selectedLeft || elem.classList.contains('matched')) return;
+            if(selectedLeft.dataset.id === elem.dataset.id) {
+                selectedLeft.classList.remove('selected');
+                selectedLeft.classList.add('matched');
+                elem.classList.add('matched');
+                selectedLeft = null;
+                pareoScore++;
+                document.getElementById('pareo-score').innerText = `Aciertos: ${pareoScore} / ${pareoData.length}`;
+                if(pareoScore === pareoData.length) {
+                    alert('¡Excelente! Has completado todo el pareo correctamente.');
+                }
+            } else {
+                elem.style.borderColor = 'var(--wrong)';
+                setTimeout(() => elem.style.borderColor = '#cbd5e1', 500);
+            }
+        }
+
+        // CARGAR QUIZ INTERACTIVO
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+
+        function initQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const item = mcData[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `Pregunta ${currentQuizIndex + 1} de ${mcData.length}`;
+            document.getElementById('quiz-question').innerText = item.q;
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+            document.getElementById('quiz-next').style.display = 'none';
+
+            item.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    document.querySelectorAll('#quiz-options .quiz-option').forEach(b => b.disabled = true);
+                    if(idx === item.a) {
+                        btn.classList.add('correct');
+                        quizScore++;
+                    } else {
+                        btn.classList.add('wrong');
+                        optionsDiv.children[item.a].classList.add('correct');
+                    }
+                    document.getElementById('quiz-next').style.display = 'inline-block';
+                };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function nextQuiz() {
+            currentQuizIndex++;
+            if(currentQuizIndex < mcData.length) {
+                showQuizQuestion();
+            } else {
+                document.getElementById('quiz-container').innerHTML = `
+                    <h3>¡Quiz Finalizado!</h3><br>
+                    <p class="score-board">Puntuación Final: ${quizScore} / ${mcData.length}</p>
+                    <button class="btn-action" onclick="initQuiz()">Intentar de Nuevo</button>
+                `;
+            }
+        }
+
+        // CARGAR GUIA FINAL
+        function loadGuia() {
+            const container = document.getElementById('guia-container');
+            container.innerHTML = '';
+            guiaData.forEach(item => {
+                const div = document.createElement('div');
+                div.style.marginBottom = "15px";
+                div.style.padding = "10px";
+                div.style.borderLeft = "4px solid var(--secondary)";
+                div.style.background = "#f8f9fa";
+                div.innerHTML = `<p><strong>${item.q}</strong></p><p style="color:#1a365d;">${item.a}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        // INICIALIZACIÓN
+        window.onload = () => {
+            loadMC();
+            loadGuia();
+        };
+    </script>
+</body>
+</html>
