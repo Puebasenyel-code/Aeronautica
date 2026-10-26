@@ -35,10 +35,10 @@
             display: block;
         }
         h2 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             color: #58a6ff;
             margin-bottom: 20px;
-            line-height: 1.4;
+            letter-spacing: 1px;
         }
         button {
             background-color: #238636;
@@ -68,40 +68,136 @@
 <body>
 
     <div class="container">
-        <!-- Ventana 1 -->
+        <!-- Yo -->
         <div id="step-0" class="box active">
-            <h2>Yo sí soy celoso</h2>
+            <h2>Yo</h2>
             <button onclick="nextStep(1)">👾 Siguiente</button>
         </div>
 
-        <!-- Ventana 2 -->
+        <!-- sí -->
         <div id="step-1" class="box">
-            <h2>Quien es ese kabron ?</h2>
-            <button onclick="nextStep(2)">⚡ Continuar</button>
+            <h2>sí</h2>
+            <button onclick="nextStep(2)">⚡ Siguiente</button>
         </div>
 
-        <!-- Ventana 3 -->
+        <!-- soy -->
         <div id="step-2" class="box">
-            <h2>Tranquila, no soy psycho</h2>
+            <h2>soy</h2>
             <button onclick="nextStep(3)">🕹️ Siguiente</button>
         </div>
 
-        <!-- Ventana 4 -->
+        <!-- celoso -->
         <div id="step-3" class="box">
-            <h2>No voy a hacer un papelón</h2>
-            <button onclick="nextStep(4)">🔮 Continuar</button>
+            <h2>celoso</h2>
+            <button onclick="nextStep(4)">🔮 Siguiente</button>
         </div>
 
-        <!-- Ventana 5 -->
+        <!-- Quien -->
         <div id="step-4" class="box">
-            <h2>ouch mi corazon</h2>
+            <h2>Quien</h2>
+            <button onclick="nextStep(5)">👾 Siguiente</button>
+        </div>
+
+        <!-- es -->
+        <div id="step-5" class="box">
+            <h2>es</h2>
+            <button onclick="nextStep(6)">⚡ Siguiente</button>
+        </div>
+
+        <!-- ese -->
+        <div id="step-6" class="box">
+            <h2>ese</h2>
+            <button onclick="nextStep(7)">🕹️ Siguiente</button>
+        </div>
+
+        <!-- kabron ? -->
+        <div id="step-7" class="box">
+            <h2>kabron ?</h2>
+            <button onclick="nextStep(8)">🔮 Siguiente</button>
+        </div>
+
+        <!-- Tranquila, -->
+        <div id="step-8" class="box">
+            <h2>Tranquila,</h2>
+            <button onclick="nextStep(9)">👾 Siguiente</button>
+        </div>
+
+        <!-- no -->
+        <div id="step-9" class="box">
+            <h2>no</h2>
+            <button onclick="nextStep(10)">⚡ Siguiente</button>
+        </div>
+
+        <!-- soy -->
+        <div id="step-10" class="box">
+            <h2>soy</h2>
+            <button onclick="nextStep(11)">🕹️ Siguiente</button>
+        </div>
+
+        <!-- psycho -->
+        <div id="step-11" class="box">
+            <h2>psycho</h2>
+            <button onclick="nextStep(12)">🔮 Siguiente</button>
+        </div>
+
+        <!-- No -->
+        <div id="step-12" class="box">
+            <h2>No</h2>
+            <button onclick="nextStep(13)">👾 Siguiente</button>
+        </div>
+
+        <!-- voy -->
+        <div id="step-13" class="box">
+            <h2>voy</h2>
+            <button onclick="nextStep(14)">⚡ Siguiente</button>
+        </div>
+
+        <!-- a -->
+        <div id="step-14" class="box">
+            <h2>a</h2>
+            <button onclick="nextStep(15)">🕹️ Siguiente</button>
+        </div>
+
+        <!-- hacer -->
+        <div id="step-15" class="box">
+            <h2>hacer</h2>
+            <button onclick="nextStep(16)">🔮 Siguiente</button>
+        </div>
+
+        <!-- un -->
+        <div id="step-16" class="box">
+            <h2>un</h2>
+            <button onclick="nextStep(17)">👾 Siguiente</button>
+        </div>
+
+        <!-- papelón -->
+        <div id="step-17" class="box">
+            <h2>papelón</h2>
+            <button onclick="nextStep(18)">⚡ Siguiente</button>
+        </div>
+
+        <!-- ouch -->
+        <div id="step-18" class="box">
+            <h2>ouch</h2>
+            <button onclick="nextStep(19)">🕹️ Siguiente</button>
+        </div>
+
+        <!-- mi -->
+        <div id="step-19" class="box">
+            <h2>mi</h2>
+            <button onclick="nextStep(20)">🔮 Siguiente</button>
+        </div>
+
+        <!-- corazon -->
+        <div id="step-20" class="box">
+            <h2>corazon</h2>
             <button onclick="restart()">🔄 Reiniciar</button>
         </div>
     </div>
 
     <script>
         let currentStep = 0;
-        const totalSteps = 5;
+        const totalSteps = 21;
 
         function nextStep(step) {
             document.getElementById(`step-${currentStep}`).classList.remove('active');
