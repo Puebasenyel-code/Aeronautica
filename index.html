@@ -29,7 +29,7 @@
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-            animation: popUp 0.25s ease-out forwards;
+            animation: popUp 0.2s ease-out forwards;
         }
         .box.active {
             display: block;
@@ -72,7 +72,6 @@
         .btn-auto:hover {
             background-color: #388bfd;
         }
-        /* Ocultar el iframe de YouTube visualmente pero mantenerlo activo para el audio */
         #youtube-player {
             display: none;
         }
@@ -188,18 +187,35 @@
         let player;
         let currentStep = 0;
         const totalSteps = 13;
-        let autoTimer = null;
+        let timeoutId = null;
 
-        // Esta función se ejecuta automáticamente cuando carga la API de YouTube
+        // Duraciones personalizadas (en milisegundos) para cada paso según el ritmo de la canción
+        // Puedes ajustar estos números si un paso dura más o menos tiempo
+        const stepDurations = [
+            400,  // No 1
+            400,  // No 2
+            400,  // No 3
+            1200, // Yo sí soy celoso
+            500,  // Pero
+            900,  // Quien es ese kabron
+            400,  // Dime
+            1000, // ¿Quien es ese kabron?
+            600,  // Tranquila
+            800,  // No soy psycho
+            1200, // No voy a hacer un papelón
+            500,  // Pero
+            1000  // Ouch mi corazon
+        ];
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'kLUeP9E9f5k', // Video oficial de Bad Bunny - Yo No Soy Celoso
+                videoId: 'kLUeP9E9f5k', // Video de YouTube integrado
                 playerVars: {
                     'autoplay': 0,
                     'controls': 0,
-                    'start': 0 // Puedes cambiar los segundos de inicio si quieres que empiece en el coro exacto
+                    'start': 45 // Cambia este número si quieres que el video empiece en otro segundo exacto (ej. donde empieza la letra)
                 }
             });
         }
@@ -213,7 +229,7 @@
         }
 
         function restart() {
-            if (autoTimer) clearInterval(autoTimer);
+            if (timeoutId) clearTimeout(timeoutId);
             if (player && player.stopVideo) {
                 player.stopVideo();
             }
@@ -222,21 +238,23 @@
             document.getElementById(`step-${currentStep}`).classList.add('active');
         }
 
-        // Inicia la música de YouTube y sincroniza el cambio automático de ventanas
+        // Función recursiva que avanza cada paso respetando su propio tiempo (sincronización precisa)
+        function runSequence() {
+            if (currentStep < totalSteps - 1) {
+                let delay = stepDurations[currentStep];
+                timeoutId = setTimeout(() => {
+                    nextStep(currentStep + 1);
+                    runSequence();
+                }, delay);
+            }
+        }
+
         function startShow() {
             restart();
             if (player && player.playVideo) {
                 player.playVideo();
             }
-            
-            // Intervalo de tiempo entre cada palabra/frase (ajustable en milisegundos)
-            autoTimer = setInterval(() => {
-                if (currentStep < totalSteps - 1) {
-                    nextStep(currentStep + 1);
-                } else {
-                    clearInterval(autoTimer);
-                }
-            }, 650); 
+            runSequence();
         }
     </script>
 
